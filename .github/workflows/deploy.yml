@@ -63,8 +63,11 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
-      - name: Verify jpackage
-        run: jpackage --version
+      - name: Build JAR
+        run: mvn clean package
+
+      - name: Verify JAR in Target
+        run: ls -l target
 
       - name: Build and Package (MSI)
         run: |
