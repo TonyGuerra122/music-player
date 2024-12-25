@@ -1,0 +1,47 @@
+name: Build and Package Music Player (Linux)
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-package:
+    name: Build and Package
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v3
+        with:
+          distribution: "temurin"
+          java-version: 17
+
+      - name: Cache Maven Dependencies
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build with Maven (both deb and rpm)
+        run: |
+          mvn clean package -Djpackage.type=deb
+          mvn clean package -Djpackage.type=rpm
+
+      - name: Verify Packages
+        run: |
+          if ls *.deb 1> /dev/null 2>&1; then echo ".deb file found"; else exit 1; fi
+          if ls *.rpm 1> /dev/null 2>&1; then echo ".rpm file found"; else exit 1; fi
+
+      - name: Upload DEB and RPM Packages
+        uses: actions/upload-artifact@v2
+        with:
+          name: installers
+          path: |
+            *.deb
+            *.rpm
