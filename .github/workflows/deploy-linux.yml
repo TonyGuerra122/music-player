@@ -39,7 +39,7 @@ jobs:
           if ls *.rpm 1> /dev/null 2>&1; then echo ".rpm file found"; else exit 1; fi
 
       - name: Upload DEB and RPM Packages
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: installers
           path: |
