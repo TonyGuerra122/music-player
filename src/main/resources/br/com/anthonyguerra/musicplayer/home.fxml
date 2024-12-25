@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+   prefHeight="350.0" prefWidth="860.0" stylesheets="@styles/main.css"
+   xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="br.com.anthonyguerra.musicplayer.controllers.HomeController">
+   <children>
+      <BorderPane layoutX="336.0" layoutY="16.0" prefHeight="268.0" prefWidth="860.0"
+         style="-fx-background-color: #333;" styleClass="root-pane" AnchorPane.bottomAnchor="0.0"
+         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <top>
+            <Label fx:id="mediaTitle" alignment="CENTER" prefHeight="60.0" prefWidth="860.0"
+               styleClass="label-title" text="Music Player" BorderPane.alignment="CENTER">
+               <font>
+                  <Font size="60.0" />
+               </font>
+            </Label>
+         </top>
+         <center>
+            <ProgressBar fx:id="progressBar" prefHeight="15.0" prefWidth="776.0" progress="0.0"
+               BorderPane.alignment="CENTER" />
+         </center>
+         <right>
+            <Button mnemonicParsing="false" onAction="#searchMediaFolder" prefHeight="26.0"
+               prefWidth="61.0" styleClass="search-button" text="Buscar"
+               BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets right="10.0" />
+               </BorderPane.margin>
+            </Button>
+         </right>
+         <bottom>
+            <HBox prefHeight="113.0" prefWidth="860.0" styleClass="buttons-group"
+               BorderPane.alignment="CENTER">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#playMedia" prefHeight="113.0"
+                     prefWidth="147.0" text="PLAY">
+                     <styleClass>
+                        <String fx:value="media-button" />
+                        <String fx:value="button-play" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#pauseMedia" prefHeight="113.0"
+                     prefWidth="147.0" text="PAUSE">
+                     <styleClass>
+                        <String fx:value="media-button" />
+                        <String fx:value="button-pause" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#nextMedia" prefHeight="113.0"
+                     prefWidth="147.0" text="NEXT">
+                     <styleClass>
+                        <String fx:value="media-button" />
+                        <String fx:value="button-next" />
+                     </styleClass>
+                  </Button>
+                  <Button mnemonicParsing="false" onAction="#previousMedia" prefHeight="113.0"
+                     prefWidth="147.0" text="PREVIOUS">
+                     <styleClass>
+                        <String fx:value="media-button" />
+                        <String fx:value="button-previous" />
+                     </styleClass>
+                  </Button>
+               </children>
+            </HBox>
+         </bottom>
+      </BorderPane>
+   </children>
+</AnchorPane>
