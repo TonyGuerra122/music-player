@@ -110,11 +110,20 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: linux-installers
+          path: artifacts/linux
 
       - name: Download Windows Installer
         uses: actions/download-artifact@v3
         with:
           name: windows-installer
+          path: artifacts/windows
+
+      - name: List Artifacts
+        run: |
+          echo "Linux Installers:"
+          ls -l artifacts/linux
+          echo "Windows Installer:"
+          ls -l artifacts/windows
 
       - name: Extract Version from Maven
         id: extract-version
@@ -128,8 +137,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ env.version }}
-          release_name: Music Player v${{ env.version }}
+          tag_name: v${{ env.VERSION }}
+          release_name: Music Player v${{ env.VERSION }}
           draft: false
           prerelease: false
 
@@ -139,8 +148,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "*.deb"
-          asset_name: music-player-${{ env.version }}.deb
+          asset_path: artifacts/linux/*.deb
+          asset_name: music-player-${{ env.VERSION }}.deb
           asset_content_type: application/vnd.debian.binary-package
 
       - name: Upload Linux RPM
@@ -149,8 +158,8 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "*.rpm"
-          asset_name: music-player-${{ env.version }}.rpm
+          asset_path: artifacts/linux/*.rpm
+          asset_name: music-player-${{ env.VERSION }}.rpm
           asset_content_type: application/x-rpm
 
       - name: Upload Windows Installer
@@ -159,6 +168,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "*.msi"
-          asset_name: music-player-${{ env.version }}.msi
+          asset_path: artifacts/windows/*.msi
+          asset_name: music-player-${{ env.VERSION }}.msi
           asset_content_type: application/x-msdownload
