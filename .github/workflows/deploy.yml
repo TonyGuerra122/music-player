@@ -149,7 +149,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "target/*.rpm"
+          asset_path: "*.rpm"
           asset_name: music-player-${{ env.version }}.rpm
           asset_content_type: application/x-rpm
 
@@ -159,6 +159,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: "target/*.msi"
+          asset_path: "*.msi"
           asset_name: music-player-${{ env.version }}.msi
           asset_content_type: application/x-msdownload
