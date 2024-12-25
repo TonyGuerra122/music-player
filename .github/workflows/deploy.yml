@@ -77,7 +77,6 @@ jobs:
 
       - name: Build and Package (MSI)
         run: |
-          jlink --module-path "%JAVA_HOME%\\jmods" --add-modules java.base,java.desktop --output target/runtime
           jpackage `
             --name "Music Player" `
             --input target `
@@ -85,9 +84,8 @@ jobs:
             --main-class br.com.anthonyguerra.musicplayer.MainApp `
             --type msi `
             --icon src/main/resources/favicon.ico `
-            --win-menu `
-            --runtime-image target/runtime
-
+            --win-menu
+            
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v3
         with:
