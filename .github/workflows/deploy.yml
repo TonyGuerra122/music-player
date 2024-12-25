@@ -8,6 +8,9 @@ on:
 permissions:
   contents: write
 
+env:
+  version: 1.0.0
+
 jobs:
   build-linux:
     name: Build for Linux
@@ -120,26 +123,24 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
 
       - name: Create GitHub Release
+        id: create_release
         uses: actions/create-release@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: v${{ env.VERSION }}
-          release_name: Music Player v${{ env.VERSION }}
+          tag_name: v${{ env.version }}
+          release_name: Music Player v${{ env.version }}
           draft: false
           prerelease: false
-          body: |
-            ## Changelog
-            - Includes installers for Linux and Windows.
 
       - name: Upload Linux Installers
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: "*.deb"
-          asset_name: music-player-${{ env.VERSION }}.deb
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "target/*.deb"
+          asset_name: music-player-${{ env.version }}.deb
           asset_content_type: application/vnd.debian.binary-package
 
       - name: Upload Linux RPM
@@ -147,9 +148,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: "*.rpm"
-          asset_name: music-player-${{ env.VERSION }}.rpm
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "target/*.rpm"
+          asset_name: music-player-${{ env.version }}.rpm
           asset_content_type: application/x-rpm
 
       - name: Upload Windows Installer
@@ -157,7 +158,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          upload_url: ${{ steps.create-release.outputs.upload_url }}
-          asset_path: "*.exe"
-          asset_name: music-player-${{ env.VERSION }}.exe
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: "target/*.msi"
+          asset_name: music-player-${{ env.version }}.msi
           asset_content_type: application/x-msdownload
