@@ -64,7 +64,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build and Package (MSI)
-        run: mvn clean package -Djpackage.type=msi
+        run: mvn clean package
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v3
